@@ -1,0 +1,36 @@
+buildscript {
+    dependencies {
+        classpath files(mkdir('build/classes/main'))
+    }
+}
+plugins {
+  id 'org.roboscratch.robot' version '0.1.1'
+}
+apply plugin: 'java'
+apply plugin: 'jacoco'
+
+sourceCompatibility = 1.7
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Tic Tac Toe', 
+                   'Implementation-Version': version, 
+                   'Main-Class': 'edu.jsu.mcis.Main'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+jacocoTestReport {
+    group = 'Reporting'
+    description = 'Generate Jacoco coverage reports after running tests.'
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+}
+
+runrobot.dependsOn build
